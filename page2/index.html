@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audio Button Page 2</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    .audio-button {
+      width: 100px;
+      height: 100px;
+      border-radius: 18px;
+      border: 1px solid #e6e2d8;
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .audio-button:focus {
+      outline: 4px solid #6b5cff;
+      outline-offset: 4px;
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-left: 28px solid #2f2d3a;
+      margin-left: 6px;
+    }
+
+    .pause-icon {
+      display: none;
+      gap: 8px;
+    }
+
+    .pause-icon span {
+      width: 10px;
+      height: 34px;
+      background: #2f2d3a;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .audio-button.playing .play-icon {
+      display: none;
+    }
+
+    .audio-button.playing .pause-icon {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="audio-button" id="audioButton" aria-label="Play audio for page 2">
+    <div class="play-icon"></div>
+    <div class="pause-icon">
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+
+  <audio id="audio" src="page2.mp3"></audio>
+
+  <script>
+    const button = document.getElementById("audioButton");
+    const audio = document.getElementById("audio");
+
+    button.addEventListener("click", async () => {
+      try {
+        if (audio.paused) {
+          await audio.play();
+          button.classList.add("playing");
+          button.setAttribute("aria-label", "Pause audio for page 2");
+        } else {
+          audio.pause();
+          button.classList.remove("playing");
+          button.setAttribute("aria-label", "Play audio for page 2");
+        }
+      } catch (error) {
+        alert("Audio could not play. Check that page2.mp3 is uploaded inside the page2 folder.");
+        console.error(error);
+      }
+    });
+
+    audio.addEventListener("ended", () => {
+      button.classList.remove("playing");
+      button.setAttribute("aria-label", "Play audio for page 2");
+    });
+  </script>
+</body>
+</html>
