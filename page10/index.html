@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Audio Button Page 10</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 10 Audio Button</title>
 
   <style>
-    body {
+    html, body {
       margin: 0;
-      padding: 10px;
+      padding: 0;
       background: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: Arial, sans-serif;
     }
 
-    .audio-button {
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
       width: 100px;
       height: 100px;
       border-radius: 18px;
       border: 1px solid #e6e2d8;
-      background: #ffffff;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+      background: white;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
     }
 
-    .audio-button:focus {
+    button:focus {
       outline: 4px solid #6b5cff;
       outline-offset: 4px;
     }
 
-    .play-icon {
+    .play {
       width: 0;
       height: 0;
       border-top: 18px solid transparent;
       border-bottom: 18px solid transparent;
-      border-left: 28px solid #2f2d3a;
+      border-left: 30px solid #2f2d3a;
       margin-left: 6px;
     }
 
-    .pause-icon {
+    .pause {
       display: none;
       gap: 8px;
     }
 
-    .pause-icon span {
+    .pause span {
       width: 10px;
       height: 34px;
       background: #2f2d3a;
@@ -58,51 +62,52 @@
       display: block;
     }
 
-    .audio-button.playing .play-icon {
+    button.playing .play {
       display: none;
     }
 
-    .audio-button.playing .pause-icon {
+    button.playing .pause {
       display: flex;
     }
   </style>
 </head>
 
 <body>
-  <button class="audio-button" id="audioButton" aria-label="Play audio for page 10">
-    <div class="play-icon"></div>
-    <div class="pause-icon">
+  <button id="audioButton" aria-label="Play page 10 audio">
+    <div class="play"></div>
+    <div class="pause">
       <span></span>
       <span></span>
     </div>
   </button>
 
-  <audio id="audio" src="page10.mp3"></audio>
+  <audio id="audio">
+    <source src="./page10.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const button = document.getElementById("audioButton");
     const audio = document.getElementById("audio");
 
-    button.addEventListener("click", async () => {
+    button.addEventListener("click", async function () {
       try {
         if (audio.paused) {
           await audio.play();
           button.classList.add("playing");
-          button.setAttribute("aria-label", "Pause audio for page 10");
+          button.setAttribute("aria-label", "Pause page 10 audio");
         } else {
           audio.pause();
           button.classList.remove("playing");
-          button.setAttribute("aria-label", "Play audio for page 10");
+          button.setAttribute("aria-label", "Play page 10 audio");
         }
       } catch (error) {
-        alert("Audio could not play. Check that page10.mp3 is uploaded inside the page10 folder.");
-        console.error(error);
+        alert("The audio could not play. Make sure page10.mp3 is inside the page10 folder and named exactly page10.mp3.");
       }
     });
 
-    audio.addEventListener("ended", () => {
+    audio.addEventListener("ended", function () {
       button.classList.remove("playing");
-      button.setAttribute("aria-label", "Play audio for page 10");
+      button.setAttribute("aria-label", "Play page 10 audio");
     });
   </script>
 </body>
