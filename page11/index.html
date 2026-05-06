@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page 11 Audio Button</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      width: 100px;
+      height: 100px;
+      border-radius: 18px;
+      border: 1px solid #e6e2d8;
+      background: white;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button:focus {
+      outline: 4px solid #6b5cff;
+      outline-offset: 4px;
+    }
+
+    .play {
+      width: 0;
+      height: 0;
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+      border-left: 30px solid #2f2d3a;
+      margin-left: 6px;
+    }
+
+    .pause {
+      display: none;
+      gap: 8px;
+    }
+
+    .pause span {
+      width: 10px;
+      height: 34px;
+      background: #2f2d3a;
+      border-radius: 2px;
+      display: block;
+    }
+
+    button.playing .play {
+      display: none;
+    }
+
+    button.playing .pause {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="audioButton" aria-label="Play page 11 audio">
+    <div class="play"></div>
+    <div class="pause">
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+
+  <audio id="audio">
+    <source src="./page11.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const button = document.getElementById("audioButton");
+    const audio = document.getElementById("audio");
+
+    button.addEventListener("click", async function () {
+      try {
+        if (audio.paused) {
+          await audio.play();
+          button.classList.add("playing");
+          button.setAttribute("aria-label", "Pause page 11 audio");
+        } else {
+          audio.pause();
+          button.classList.remove("playing");
+          button.setAttribute("aria-label", "Play page 11 audio");
+        }
+      } catch (error) {
+        alert("The audio could not play. Make sure page11.mp3 is inside the page11 folder and named exactly page11.mp3.");
+      }
+    });
+
+    audio.addEventListener("ended", function () {
+      button.classList.remove("playing");
+      button.setAttribute("aria-label", "Play page 11 audio");
+    });
+  </script>
+</body>
+</html>
